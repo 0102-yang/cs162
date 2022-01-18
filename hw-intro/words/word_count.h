@@ -23,8 +23,6 @@ Functional methods take the head of a list as first arg.
 Mutators take a reference to a list as first arg.
 */
 
-
-
 #ifndef word_count_h
 #define word_count_h
 
@@ -32,8 +30,8 @@ Mutators take a reference to a list as first arg.
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
 /* Representation of a word count object.
    Includes next field for constructing singly linked list*/
@@ -55,20 +53,22 @@ size_t len_words(WordCount *wchead);
 /* Find a word in a word_count list */
 WordCount *find_word(WordCount *wchead, char *word);
 
-/* Insert word with count=1, if not already present; increment count if present. */
+/* Insert word with count=1, if not already present; increment count if present.
+ */
 void add_word(WordCount **wclist, char *word);
 
-//static int wordcntcmp(const WordCount *wc1, WordCount *wc2);
+// static int wordcntcmp(const WordCount *wc1, WordCount *wc2);
 
 /* print word counts to a file */
 void fprint_words(WordCount *wchead, FILE *ofile);
 
-/* Inserts a word into the list in order. Assumes the existing list is already sorted */
-void wordcount_insert_ordered(WordCount **wclist, WordCount *elem, bool less(const WordCount *, const WordCount *));
+/* Inserts a word into the list in order. Assumes the existing list is already
+ * sorted */
+void wordcount_insert_ordered(WordCount **wclist, WordCount *elem,
+                              bool less(const WordCount *, const WordCount *));
 
 /* Sort a word count list in place */
-void wordcount_sort(WordCount **wclist, bool less(const WordCount *, const WordCount *));
+void wordcount_sort(WordCount **wclist,
+                    bool less(const WordCount *, const WordCount *));
 
 #endif /* word_count_h */
-
-
