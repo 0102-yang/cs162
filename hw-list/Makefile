@@ -1,6 +1,6 @@
 EXECUTABLES=pthread words lwords pwords
 CC=gcc
-CFLAGS=-g3 -pthread -Wall -std=gnu99
+CFLAGS=-g3 -pthread -Wall -std=gnu11
 LDFLAGS=-pthread
 
 .PHONY: all clean

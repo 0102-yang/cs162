@@ -24,12 +24,12 @@
 #ifndef WORD_COUNT_H
 #define WORD_COUNT_H
 
+#include <ctype.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
-#include <string.h>
-#include <ctype.h>
 #include <stdlib.h>
+#include <string.h>
 
 /*
  * Representation of a word count object and word count list object.
@@ -39,17 +39,19 @@
 
 #ifdef PINTOS_LIST
 #include "list.h"
-typedef struct word_count {
-  char* word;
-  int count;
-  struct list_elem elem;
+typedef struct word_count
+{
+    char *word;
+    int count;
+    struct list_elem elem;
 } word_count_t;
 
 #ifdef PTHREADS
 #include <pthread.h>
-typedef struct word_count_list {
-  struct list lst;
-  pthread_mutex_t lock;
+typedef struct word_count_list
+{
+    struct list lst;
+    pthread_mutex_t lock;
 } word_count_list_t;
 #else  /* PTHREADS */
 typedef struct list word_count_list_t;
@@ -57,34 +59,35 @@ typedef struct list word_count_list_t;
 
 #else  /* PINTOS_LIST */
 
-typedef struct word_count {
-  char* word;
-  int count;
-  struct word_count* next;
+typedef struct word_count
+{
+    char *word;
+    int count;
+    struct word_count *next;
 } word_count_t;
 
-typedef word_count_t* word_count_list_t;
+typedef word_count_t *word_count_list_t;
 #endif /* PINTOS_LIST */
 
 /* Initialize a word count list. */
-void init_words(word_count_list_t* wclist);
+void init_words(word_count_list_t *wclist);
 
 /* Get length of a word count list. */
-size_t len_words(word_count_list_t* wclist);
+size_t len_words(word_count_list_t *wclist);
 
 /* Find a word in a word_count list. */
-word_count_t* find_word(word_count_list_t* wclist, char* word);
+word_count_t *find_word(word_count_list_t *wclist, char *word);
 
 /*
  * Insert word with count=1, if not already present; increment count if
  * present. Takes ownership of word.
  */
-word_count_t* add_word(word_count_list_t* wclist, char* word);
+word_count_t *add_word(word_count_list_t *wclist, char *word);
 
 /* Print word counts to a file. */
-void fprint_words(word_count_list_t* wclist, FILE* outfile);
+void fprint_words(word_count_list_t *wclist, FILE *outfile);
 
 /* Sort a word count list using the provided comparator function. */
-void wordcount_sort(word_count_list_t* wclist, bool less(const word_count_t*, const word_count_t*));
+void wordcount_sort(word_count_list_t *wclist, bool less(const word_count_t *, const word_count_t *));
 
 #endif /* WORD_COUNT_H */
